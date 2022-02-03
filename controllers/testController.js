@@ -1,4 +1,4 @@
-exports.helloWorld = (req, res, next) => {
+exports.helloWorld = (req, res) => {
   const response = {
     message: 'hello world'
   };
