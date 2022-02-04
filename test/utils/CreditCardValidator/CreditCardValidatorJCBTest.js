@@ -1,7 +1,7 @@
 const { expect } = require('chai')
 const { describe, it } = require('mocha')
 
-const { CreditCardValidator } = require('../../../utils/CreditCardValidator/CreditCardValidator');
+const { CreditCardValidator}  = require('../../../utils/CreditCardValidator/CreditCardValidator');
 const { JCB } = require('../../../utils/CreditCardValidator/JCB');
 const { CreditCardNumberMocker } = require('../../mocks/CreditCards/CreditCardNumberMocker');
 
@@ -11,7 +11,7 @@ describe('CreditCardValidator JCB', () => {
     let mocker = CreditCardNumberMocker(creditCard, '3528-3589')
     let creditCardNumber = mocker.generate()
     console.log('creditCardNumber:', creditCardNumber)
-    let validator = CreditCardValidator(creditCard, creditCardNumber);
+    let validator = new CreditCardValidator(creditCard, creditCardNumber);
     expect(validator.validate()).to.be.true
   })
 
@@ -20,7 +20,7 @@ describe('CreditCardValidator JCB', () => {
     let mocker = CreditCardNumberMocker(creditCard, null, '16-19')
     let creditCardNumber = mocker.generate()
     console.log('creditCardNumber:', creditCardNumber, creditCardNumber.length)
-    let validator = CreditCardValidator(creditCard, creditCardNumber);
+    let validator = new CreditCardValidator(creditCard, creditCardNumber);
     expect(validator.validate()).to.be.true
   })
 
@@ -33,7 +33,7 @@ describe('CreditCardValidator JCB', () => {
     creditCardNumber[3] = '7'
     creditCardNumber = creditCardNumber.join('')
     console.log('creditCardNumber:', creditCardNumber)
-    let validator = CreditCardValidator(creditCard, creditCardNumber);
+    let validator = new CreditCardValidator(creditCard, creditCardNumber);
     expect(validator.validate()).to.be.false
   })
 
@@ -45,7 +45,7 @@ describe('CreditCardValidator JCB', () => {
     creditCardNumber[2] = '9'
     creditCardNumber[3] = '0'
     creditCardNumber = creditCardNumber.join('')
-    let validator = CreditCardValidator(creditCard, creditCardNumber);
+    let validator = new CreditCardValidator(creditCard, creditCardNumber);
     expect(validator.validate()).to.be.false
   })
 })

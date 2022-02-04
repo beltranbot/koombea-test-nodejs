@@ -1,9 +1,15 @@
-exports.CreditCardValidator = (creditCard, cardNumber) => {
-  const validateLength = () => {
-    const cardNumberLength = cardNumber.length
-    for (const length of creditCard.getValidLengths()) {
+exports.CreditCardValidator = class {
+
+  constructor(creditCard, cardNumber) {
+    this.creditCard = creditCard
+    this.cardNumber = cardNumber
+  }
+
+  validateLength() {
+    const cardNumberLength = this.cardNumber.length
+    for (const length of this.creditCard.getValidLengths()) {
       if (isNaN(length)) {
-        if (validateLengthRange(cardNumberLength, length)) {
+        if (this.validateLengthRange(cardNumberLength, length)) {
           return true
         }
         continue
@@ -15,43 +21,43 @@ exports.CreditCardValidator = (creditCard, cardNumber) => {
     return false
   }
 
-  const validateLengthRange = (cardNumberLength, length) => {
+  validateLengthRange(cardNumberLength, length) {
     const [min, max] = length.split('-').map(x => +x)
     return cardNumberLength >= min && cardNumberLength <= max
   }
 
-  const validateINNRanges = () => {
-    if (creditCard.getValidInnRanges().length === 0) {
+  validateINNRanges() {
+    if (this.creditCard.getValidInnRanges().length === 0) {
       return true
     }
-    for (const innRange of creditCard.getValidInnRanges()) {
+    for (const innRange of this.creditCard.getValidInnRanges()) {
       if (isNaN(innRange)) {
-        if (processRange(innRange)) {
+        if (this.processRange(innRange)) {
           return true
         }
         continue
       }
-      if (cardNumber.startsWith(innRange)) {
+      if (this.cardNumber.startsWith(innRange)) {
         return true
       }
     }
     return false
   }
 
-  const processRange = (numbers) => {
+  processRange(numbers) {
     const [min, max] = numbers.split('-').map(x => +x)
-    const intNumber = cardNumber.substring(0, ("" + min).length)
+    const intNumber = this.cardNumber.substring(0, ("" + min).length)
     return (intNumber >= min && intNumber <= max)
   }
 
-  const validate = () => {
+  validate() {
     return (
-      validateLength()
-      && validateINNRanges()
+      this.validateLength()
+      && this.validateINNRanges()
     );
   }
 
-  return {
-    validate
+  getFranchise() {
+    return this.creditCard.getFranchise()
   }
-};
+}

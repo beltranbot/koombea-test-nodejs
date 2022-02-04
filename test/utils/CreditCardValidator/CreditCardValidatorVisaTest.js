@@ -1,7 +1,7 @@
 const { expect } = require('chai')
 const { describe, it } = require('mocha')
 
-const { CreditCardValidator } = require('../../../utils/CreditCardValidator/CreditCardValidator');
+const { CreditCardValidator}  = require('../../../utils/CreditCardValidator/CreditCardValidator');
 const { Visa } = require('../../../utils/CreditCardValidator/Visa');
 const { CreditCardNumberMocker } = require('../../mocks/CreditCards/CreditCardNumberMocker');
 
@@ -11,7 +11,7 @@ describe('CreditCardValidator Visa', () => {
     let mocker = CreditCardNumberMocker(creditCard, 4)
     let creditCardNumber = mocker.generate()
     console.log('creditCardNumber:', creditCardNumber)
-    let validator = CreditCardValidator(creditCard, creditCardNumber);
+    let validator = new CreditCardValidator(creditCard, creditCardNumber);
     expect(validator.validate()).to.be.true
   })
 
@@ -23,7 +23,7 @@ describe('CreditCardValidator Visa', () => {
     creditCardNumber[0] = '3'
     creditCardNumber = creditCardNumber.join('')
     console.log('creditCardNumber:', creditCardNumber)
-    let validator = CreditCardValidator(creditCard, false);
+    let validator = new CreditCardValidator(creditCard, false);
     expect(validator.validate()).to.be.false
   })
 
@@ -35,7 +35,7 @@ describe('CreditCardValidator Visa', () => {
     creditCardNumber[0] = '5'
     creditCardNumber = creditCardNumber.join('')
     console.log('creditCardNumber:', creditCardNumber)
-    let validator = CreditCardValidator(creditCard, false);
+    let validator = new CreditCardValidator(creditCard, false);
     expect(validator.validate()).to.be.false
   })
 
@@ -49,7 +49,7 @@ describe('CreditCardValidator Visa', () => {
     }
     creditCardNumber = creditCardNumber.join('')
     console.log('creditCardNumber:', creditCardNumber)
-    let validator = CreditCardValidator(creditCard, false);
+    let validator = new CreditCardValidator(creditCard, false);
     expect(validator.validate()).to.be.false
   })
 
@@ -63,7 +63,7 @@ describe('CreditCardValidator Visa', () => {
     }
     creditCardNumber = creditCardNumber.join('')
     console.log('creditCardNumber:', creditCardNumber)
-    let validator = CreditCardValidator(creditCard, false);
+    let validator = new CreditCardValidator(creditCard, false);
     expect(validator.validate()).to.be.false
   })
 })

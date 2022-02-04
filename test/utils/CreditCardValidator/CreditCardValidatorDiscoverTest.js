@@ -2,7 +2,7 @@ const { expect } = require('chai');
 const { describe, it } = require('mocha')
 const chance = require('chance').Chance()
 
-const { CreditCardValidator } = require('../../../utils/CreditCardValidator/CreditCardValidator')
+const { CreditCardValidator}  = require('../../../utils/CreditCardValidator/CreditCardValidator')
 const { Discover } = require('../../../utils/CreditCardValidator/Discover')
 const { CreditCardNumberMocker } = require('../../mocks/CreditCards/CreditCardNumberMocker')
 
@@ -12,7 +12,7 @@ describe('CreditCardValidator Discover', () => {
     let mocker = CreditCardNumberMocker(creditCard, 6011)
     let creditCardNumber = mocker.generate(creditCard)
     console.log(creditCardNumber, 6011);
-    let validator = CreditCardValidator(creditCard, creditCardNumber);
+    let validator = new CreditCardValidator(creditCard, creditCardNumber);
     expect(validator.validate()).to.be.true
   })
 
@@ -21,7 +21,7 @@ describe('CreditCardValidator Discover', () => {
     let mocker = CreditCardNumberMocker(creditCard, '644-649')
     let creditCardNumber = mocker.generate(creditCard)
     console.log(creditCardNumber, '644-649');
-    let validator = CreditCardValidator(creditCard, creditCardNumber);
+    let validator = new CreditCardValidator(creditCard, creditCardNumber);
     expect(validator.validate()).to.be.true
   })
 
@@ -30,7 +30,7 @@ describe('CreditCardValidator Discover', () => {
     let mocker = CreditCardNumberMocker(creditCard, 65)
     let creditCardNumber = mocker.generate(creditCard)
     console.log(creditCardNumber, 65);
-    let validator = CreditCardValidator(creditCard, creditCardNumber);
+    let validator = new CreditCardValidator(creditCard, creditCardNumber);
     expect(validator.validate()).to.be.true
   })
 
@@ -39,7 +39,7 @@ describe('CreditCardValidator Discover', () => {
     let mocker = CreditCardNumberMocker(creditCard, '622126-622925')
     let creditCardNumber = mocker.generate(creditCard)
     console.log(creditCardNumber, '622126-622925');
-    let validator = CreditCardValidator(creditCard, creditCardNumber);
+    let validator = new CreditCardValidator(creditCard, creditCardNumber);
     expect(validator.validate()).to.be.true
   })
 
@@ -48,7 +48,7 @@ describe('CreditCardValidator Discover', () => {
     let mocker = CreditCardNumberMocker(creditCard, null, '16-19')
     let creditCardNumber = mocker.generate(creditCard)
     console.log(creditCardNumber, 'length 16-19', creditCardNumber.length);
-    let validator = CreditCardValidator(creditCard, creditCardNumber);
+    let validator = new CreditCardValidator(creditCard, creditCardNumber);
     expect(validator.validate()).to.be.true
   })
 
@@ -61,7 +61,7 @@ describe('CreditCardValidator Discover', () => {
       creditCardNumber.pop()
     }
     creditCardNumber = creditCardNumber.join('')
-    let validator = CreditCardValidator(creditCard, creditCardNumber);
+    let validator = new CreditCardValidator(creditCard, creditCardNumber);
     expect(validator.validate()).to.be.false
   })
 
@@ -74,13 +74,13 @@ describe('CreditCardValidator Discover', () => {
       creditCardNumber.push(chance.integer({min:0, max:9}))
     }
     creditCardNumber = creditCardNumber.join('')
-    let validator = CreditCardValidator(creditCard, creditCardNumber);
+    let validator = new CreditCardValidator(creditCard, creditCardNumber);
     expect(validator.validate()).to.be.false
   })
 
   it('should return false if an invalid Discover Card number is passed', () => {
     let creditCard = Discover()
-    let validator = CreditCardValidator(creditCard, '6229264709045570344');
+    let validator = new CreditCardValidator(creditCard, '6229264709045570344');
     expect(validator.validate()).to.be.false
   })
 })

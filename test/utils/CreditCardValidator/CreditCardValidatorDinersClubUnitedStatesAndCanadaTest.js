@@ -11,7 +11,7 @@ const {
 
 describe('CreditCardValidator United States & Canada Club International', () => {
   it('should validate Diner Club United States & Canada Card inn range 54', () => {
-    let validator = CreditCardValidator(DinersClubUnitedStatesAndCanada(), '5412345678910123');
+    let validator = new CreditCardValidator(DinersClubUnitedStatesAndCanada(), '5412345678910123');
     expect(validator.validate()).to.be.true
   })
 
@@ -21,17 +21,17 @@ describe('CreditCardValidator United States & Canada Club International', () => 
       head = chance.integer({min: 10, max: 99})
     }
     let tail = '12345678910123'
-    let validator = CreditCardValidator(DinersClubUnitedStatesAndCanada(), head + tail);
+    let validator = new CreditCardValidator(DinersClubUnitedStatesAndCanada(), head + tail);
     expect(validator.validate()).to.be.true
   })
 
   it('should return false if Diner Club United States & Canada Card length < 16', () => {
-    let validator = CreditCardValidator(DinersClubUnitedStatesAndCanada(), '541234567891012');
+    let validator = new CreditCardValidator(DinersClubUnitedStatesAndCanada(), '541234567891012');
     expect(validator.validate()).to.be.false
   })
 
   it('should return false if Diner Club United States & Canada Card length > 16', () => {
-    let validator = CreditCardValidator(DinersClubUnitedStatesAndCanada(), '54123456789101234');
+    let validator = new CreditCardValidator(DinersClubUnitedStatesAndCanada(), '54123456789101234');
     expect(validator.validate()).to.be.false
   })
 })
