@@ -5,7 +5,7 @@ const VALID_INN_RANGES = [
   '622126-622925'
 ]
 const VALID_LENGTHS = ['16-19']
-const FRANCHISE = "Discover"
+const FRANCHISE = "Discover Card"
 
 exports.Discover = () => {
   return new CreditCard(FRANCHISE, VALID_INN_RANGES, VALID_LENGTHS)

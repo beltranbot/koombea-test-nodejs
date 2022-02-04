@@ -2,7 +2,7 @@ version: "3.9"
 
 services:
   backend:
-    container_name: nodejs
+    container_name: koombea_nodejs
     restart: always
     build:
       context: .
