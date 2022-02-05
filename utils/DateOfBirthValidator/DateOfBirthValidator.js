@@ -1,20 +1,20 @@
-const moment = requier('moment')
+const moment = require('moment')
 
 class DateOfBirthValidator {
 
   constructor(dob) {
-      this.dob = dob;
+      this.dob = dob.trim();
   }
 
   isValid() {
     return (
-      moment(this.dob, '%Y%m%d',true).isValid()
-      || moment(this.dob, '%F',true).isValid()
+      moment(this.dob, 'YYYYMMDD', true).isValid()
+      || moment(this.dob, 'YYYY-MM-DD', true).isValid()
     )
   }
 
-  getName() {
-    return this.name;
+  getDOB() {
+    return this.dob;
   }
 }
 

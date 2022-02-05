@@ -1,7 +1,7 @@
 class NameValidator {
 
   constructor(name) {
-      this.name = name.trim();
+      this.name = name.trim()
   }
 
   isValid() {

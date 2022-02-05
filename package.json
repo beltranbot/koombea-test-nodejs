@@ -15,7 +15,8 @@
     "dev": "nodemon index.js --ignore data/",
     "lint": "eslint .",
     "pretest": "npm run lint",
-    "test": "npm run pretest && nyc mocha ./test --recursive"
+    "test": "npm run pretest && nyc mocha ./test --recursive",
+    "test-single": "nyc mocha --inspect"
   },
   "author": "",
   "license": "ISC",
