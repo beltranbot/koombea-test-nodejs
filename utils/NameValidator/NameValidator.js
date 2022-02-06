@@ -5,7 +5,7 @@ class NameValidator {
   }
 
   isValid() {
-    return !this.name.includes('-')
+    return (this.name.length > 0) && !this.name.includes('-')
   }
 
   getName() {
