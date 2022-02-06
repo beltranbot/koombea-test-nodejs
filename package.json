@@ -4,10 +4,12 @@
   "description": "",
   "main": "index.js",
   "dependencies": {
+    "aws-sdk": "^2.1069.0",
     "card-validator": "^8.1.1",
     "dotenv": "^16.0.0",
     "email-validator": "^2.0.4",
     "express": "^4.17.2",
+    "express-fileupload": "^1.3.1",
     "moment": "^2.29.1",
     "nodemon": "^2.0.15",
     "sinon": "^13.0.1"
@@ -18,7 +20,8 @@
     "lint": "eslint .",
     "pretest": "npm run lint",
     "test": "npm run pretest && nyc mocha ./test --recursive",
-    "test-single": "nyc mocha --inspect"
+    "test-single": "nyc mocha --inspect",
+    "start": "NODE_ENV=production index.js"
   },
   "author": "",
   "license": "ISC",
