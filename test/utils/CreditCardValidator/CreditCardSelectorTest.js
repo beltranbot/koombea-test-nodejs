@@ -1,82 +1,42 @@
 const { expect } = require('chai')
 const { describe, it } = require('mocha')
-const { MasterCard } = require('../../../utils/CreditCardValidator/MasterCard')
 const { CreditCardSelector } = require('../../../utils/CreditCardValidator/CreditCardSelector')
-const { CreditCardNumberMocker } = require('../../mocks/CreditCards/CreditCardNumberMocker')
-const { Discover } = require('../../../utils/CreditCardValidator/Discover')
-const { JCB } = require('../../../utils/CreditCardValidator/JCB')
-const { Visa } = require('../../../utils/CreditCardValidator/Visa')
 
 describe('CreditCardSelector', () => {
   it('should recognize American Express card', () => {
-    let creditCard = MasterCard()
-    let mocker = CreditCardNumberMocker(creditCard)
-    let creditCardNumber = mocker.generate()
+    let creditCardNumber = '341352856147916'
     let selector = new CreditCardSelector(creditCardNumber)
-    expect(selector.getFranchise()).to.be.equal(creditCard.getFranchise())
+    expect(selector.getFranchise()).to.be.equal('american-express')
   })
 
   it('should recognize Discover card', () => {
-    let creditCard = Discover()
-    let mocker = CreditCardNumberMocker(creditCard)
-    let creditCardNumber = mocker.generate()
-    console.log("mock card:", creditCardNumber);
+    let creditCardNumber = '6011026798539895'
     let selector = new CreditCardSelector(creditCardNumber)
-    expect(selector.getFranchise()).to.be.equal(creditCard.getFranchise())
+    expect(selector.getFranchise()).to.be.equal('discover')
   })
 
   it('should recognize JCB card', () => {
-    let creditCard = JCB()
-    let mocker = CreditCardNumberMocker(creditCard)
-    let creditCardNumber = mocker.generate()
-    console.log("mock card:", creditCardNumber);
+    let creditCardNumber = '3530111333300000'
     let selector = new CreditCardSelector(creditCardNumber)
-    expect(selector.getFranchise()).to.be.equal(creditCard.getFranchise())
+    expect(selector.getFranchise()).to.be.equal('jcb')
   })
 
   it('should recognize Master Card card', () => {
-    let creditCard = MasterCard()
-    let mocker = CreditCardNumberMocker(creditCard)
-    let creditCardNumber = mocker.generate()
-    console.log("mock card:", creditCardNumber);
+    let creditCardNumber = '5365632166337012'
     let selector = new CreditCardSelector(creditCardNumber)
-    expect(selector.getFranchise()).to.be.equal(creditCard.getFranchise())
+    expect(selector.getFranchise()).to.be.equal('mastercard')
   })
 
   it('should recognize Visa card', () => {
-    let creditCard = Visa()
-    let mocker = CreditCardNumberMocker(creditCard)
-    let creditCardNumber = mocker.generate()
-    console.log("mock card:", creditCardNumber);
+    let creditCardNumber = '4539383513502528'
     let selector = new CreditCardSelector(creditCardNumber)
-    expect(selector.getFranchise()).to.be.equal(creditCard.getFranchise())
+    expect(selector.getFranchise()).to.be.equal('visa')
   })
 
-  it('should recognize Diners Club International card', () => {
-    let creditCard = Visa()
-    let mocker = CreditCardNumberMocker(creditCard)
-    let creditCardNumber = mocker.generate()
-    console.log("mock card:", creditCardNumber);
+  it('should recognize Diners Club card', () => {
+    let creditCardNumber = '36556348004168'
     let selector = new CreditCardSelector(creditCardNumber)
-    expect(selector.getFranchise()).to.be.equal(creditCard.getFranchise())
-  })
-
-  it('should recognize Diners Club United STates & Canada card', () => {
-    let creditCard = Visa()
-    let mocker = CreditCardNumberMocker(creditCard)
-    let creditCardNumber = mocker.generate()
-    console.log("mock card:", creditCardNumber);
-    let selector = new CreditCardSelector(creditCardNumber)
-    expect(selector.getFranchise()).to.be.equal(creditCard.getFranchise())
-  })
-
-  it('should recognize Diners Club En Route card', () => {
-    let creditCard = Visa()
-    let mocker = CreditCardNumberMocker(creditCard)
-    let creditCardNumber = mocker.generate()
-    console.log("mock card:", creditCardNumber);
-    let selector = new CreditCardSelector(creditCardNumber)
-    expect(selector.getFranchise()).to.be.equal(creditCard.getFranchise())
+    expect(selector.getFranchise()).to.be.equal('diners-club')
   })
 
   it('should return null if credit card number is not valid', () => {
