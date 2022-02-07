@@ -2,6 +2,7 @@
 const testController = require('../controllers/testController');
 const contactFilesController = require('../controllers/contactFilesController');
 const usersController = require('../controllers/usersController')
+const contactsController = require('../controllers/contactsController')
 
 // middlewares
 const hasOneFileMiddleware = require('../middleware/hasOneFileMiddleware');
@@ -16,4 +17,6 @@ exports.init = (app) => {
   app.post('/users', usersController.postUser)
   app.post('/login', usersController.postLogin)
   app.get('/users', authMiddleware, usersController.getUser)
+  // contacts
+  app.get('/contacts', authMiddleware, contactsController.getContacts)
 }
