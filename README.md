@@ -32,7 +32,7 @@ BCRYPT_SALT_ROUNDS=10
 
     docker exec -ti -u node koombea_nodejs bash
 
-5. instal dependencies
+5. install dependencies
 
     npm install
 
