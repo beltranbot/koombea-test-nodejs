@@ -34,7 +34,6 @@ class LineProcessor {
     this.isValid = true
     for (const className of Object.keys(classes)) {
       let validator = null
-      let contact = {}
       if (className === EmailValidator) {
         validator = new classes[className](this.line[i], this.emails)
       } else {
@@ -46,16 +45,9 @@ class LineProcessor {
         this.isValid = false
         break
       }
-      this.setData(contact)
       i++
     }
     return this.isValid
-  }
-
-  getContactData() {
-    return {
-
-    }
   }
 
 }

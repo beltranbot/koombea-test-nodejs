@@ -1,5 +1,3 @@
-
-const { expect } = require('chai')
 const { describe, it } = require('mocha')
 const Sequelize = require('sequelize')
 const Contact = require('../../models/Contact')

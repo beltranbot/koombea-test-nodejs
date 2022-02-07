@@ -1,5 +1,6 @@
 const Sequelize = require('sequelize');
 const Contact = require("../../models/Contact");
+const { CreditCardValidator } = require('../CreditCardValidator/CreditCardValidator');
 const LineProcessor = require('./LineProcessor');
 
 class FileProcessor {
@@ -30,14 +31,16 @@ class FileProcessor {
       let processor = new LineProcessor(line, this.emails)
       if (processor.validate()) {
         let [name, dob, phone, address, creditCard, email] = line.split(',')
+        let validator = new CreditCardValidator(creditCard)
+        let franchise = validator.getFranchise()
         contacts.push({
           userId: this.contactFile.userId,
           name,
           dob,
           phone,
           address,
-          creditCard,
-          franchise: 'test',
+          creditCard: creditCard.substring(creditCard.length - 4, creditCard.length),
+          franchise,
           email
         })
       }
@@ -47,7 +50,7 @@ class FileProcessor {
 
   bulkSave(contacts) {
     Contact.bulkCreate(contacts)
-      .then(_ => {
+      .then(() => {
         console.log('success');
       })
   }
