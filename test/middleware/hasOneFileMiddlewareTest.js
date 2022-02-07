@@ -5,15 +5,38 @@ const hasOneFileMiddleware = require('../../middleware/hasOneFileMiddleware');
 
 
 describe('hasOneFileMiddleware', () => {
+  it('should return status 422 if request doesn\'t contain a files field', () => {
+    // test chained methods
+    const req = {}
+    const res = {
+      status: () => { },
+      send: () => { }
+    }
+    const resMock = sinon.mock(res)
+    resMock.expects('status')
+      .once()
+      .withArgs(422)
+      .returnsThis()
+    resMock.expects('send')
+      .once()
+      .withArgs({
+        message: 'No file uploaded'
+      })
+    hasOneFileMiddleware(req, res, null)
+    resMock.restore()
+  })
+
   it('should return status 422 if request doesn\'t contain a file', () => {
     const req = {
       files: {}
     }
     const res = {
-      send: () => {}
+      send: () => { },
+      status: () => { }
     }
     const resMock = sinon.mock(res)
-    resMock.expects('send').once().withArgs(422, {
+    resMock.expects('status').once().withArgs(422).returnsThis()
+    resMock.expects('send').once().withArgs({
       message: 'No file uploaded'
     })
     hasOneFileMiddleware(req, res, null)
@@ -28,10 +51,12 @@ describe('hasOneFileMiddleware', () => {
       }
     }
     const res = {
-      send: () => {}
+      send: () => {},
+      status: () => {}
     }
     const resMock = sinon.mock(res)
-    resMock.expects('send').once().withArgs(422, {
+    resMock.expects('status').once().withArgs(422).returnsThis()
+    resMock.expects('send').once().withArgs({
       message: 'Only one file can be uploaded at the time'
     })
     hasOneFileMiddleware(req, res, null)
@@ -45,10 +70,12 @@ describe('hasOneFileMiddleware', () => {
     }
     req.files[filename] = ''
     const res = {
-      send: () => {}
+      send: () => {},
+      status: () => {},
     }
     const resMock = sinon.mock(res)
-    resMock.expects('send').once().withArgs(422, {
+    resMock.expects('status').once().withArgs(422).returnsThis()
+    resMock.expects('send').once().withArgs({
       message: 'Filename is too long'
     })
     hasOneFileMiddleware(req, res, null)
