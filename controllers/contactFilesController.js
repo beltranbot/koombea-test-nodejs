@@ -46,7 +46,6 @@ exports.postContacFiles = async (req, res) => {
 
 exports.postProcess = async (req, res) => {
   const contact_file_id = req.params.contact_file_id
-  console.log('contact_file_id', contact_file_id);
   const contactFile = await ContactFile.findOne({ where: { id: contact_file_id } })
   if (!contactFile) {
     return res.status(404).send({
@@ -69,4 +68,24 @@ exports.postProcess = async (req, res) => {
   return res.status(200).send({
     message: 'OK'
   })
+}
+
+exports.getContactFiles = async (req, res) => {
+  const page = req.query.page ? +req.query.page : 0
+  const limit = req.query.size ? +req.query.size : 10
+  const contactFiles = await ContactFile.findAndCountAll({
+    where: { user_id: req.auth.user.id },
+    limit,
+    offset: page * limit
+  })
+  const response = getPagingData(contactFiles, page, limit)
+  return res.status(200)
+    .send(response)
+}
+
+const getPagingData = (data, page, limit) => {
+  const { count: totalItems, rows: contact_files } = data
+  const currentPage = page ? +page : 0
+  const totalPages = Math.ceil(totalItems / limit)
+  return { totalItems, contact_files, totalPages, currentPage };
 }
