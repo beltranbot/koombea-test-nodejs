@@ -25,3 +25,7 @@ exports.AWS = {
   bucket_name: process.env.AWS_BUCKET_NAME,
   region: 'eu-west-1'
 }
+
+exports.BCRYPT = {
+  saltRounds: +process.env.BCRYPT_SALT_ROUNDS
+}
