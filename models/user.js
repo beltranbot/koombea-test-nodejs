@@ -6,7 +6,9 @@ const User = sequelize.define('users', {
   username: Sequelize.STRING,
   password: Sequelize.STRING
 }, {
-  timestamps: false
-});
+  createdAt: 'created_at',
+  updatedAt: 'updated_at',
+  
+})
 
 module.exports = User

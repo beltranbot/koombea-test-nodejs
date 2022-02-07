@@ -2,14 +2,16 @@ const authService = require('../services/authService');
 
 module.exports = (req, res, next) => {
   const authorization = getAuthorizationHeader(req);
+  const decoded = authService.verifyToken(authorization[1])
   const isAuthorized = (
     authorization &&
     isBearerTokenPresent(authorization) &&
-    authService.verifyToken(authorization[1])
+    decoded
   );
   if (!isAuthorized) {
     return unauthorized(res);
   }
+  req.auth = { user: decoded}
   return next();
 }
 
